@@ -3,8 +3,8 @@ import PostalMime from "postal-mime";
 export default {
 	async email(message, env, ctx) {
 		const webhookUrl = env.DISCORD_WEBHOOK_URL;
-		const subject = message.headers.get('subject')
 		const email = await PostalMime.parse(message.raw)
+		const subject = email.subject || message.headers.get('subject')
 		const body = email.text || "本文なし"
 		const data = {
 			"content": `送信元:${message.from}\n宛先:${message.to}\n件名:${subject || "件名なし"}\n\n${body}`
