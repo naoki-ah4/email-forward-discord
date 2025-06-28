@@ -18,6 +18,12 @@ export default {
 		} else {
 			console.error("転送失敗", res.statusText, await res.text(), data)
 		}
+
+		const forwardEmailAddress: string | undefined = env.FORWARD_EMAIL_ADDRESS;
+		if (forwardEmailAddress) {
+			// 転送用のメールアドレスが設定されている場合、転送メールを送信
+			message.forward(forwardEmailAddress)
+		}
 	}
 } satisfies ExportedHandler<Env>;
 
