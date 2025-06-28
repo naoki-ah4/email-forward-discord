@@ -38,7 +38,7 @@ const buildDiscordContent = (email: Email, message: ForwardableEmailMessage) => 
 	const emailFrom = email.from.address || message.from.toString() || "不明";
 	const emailTo = email.to?.join(",") || message.to || "不明";
 
-	const md5Hash = email && createHash("md5").update(emailFrom).digest("hex");
+	const md5Hash = emailFrom && createHash("md5").update(emailFrom).digest("hex");
 	const iconUrl =
 		md5Hash && `https://www.gravatar.com/avatar/${md5Hash}?d=identicon`;
 
