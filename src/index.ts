@@ -22,7 +22,11 @@ export default {
 		const forwardEmailAddress: string | undefined = env.FORWARD_EMAIL_ADDRESS;
 		if (forwardEmailAddress) {
 			// 転送用のメールアドレスが設定されている場合、転送メールを送信
-			message.forward(forwardEmailAddress)
+			try {
+				await message.forward(forwardEmailAddress)
+			} catch (error) {
+				console.error("転送メールの送信に失敗:", error);
+			}
 		}
 	}
 } satisfies ExportedHandler<Env>;
